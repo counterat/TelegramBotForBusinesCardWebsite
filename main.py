@@ -11,7 +11,7 @@ import os
 import cloudinary.uploader
 import cloudinary
 cloudinary.config(
-    cloud_name=cloud_name
+    cloud_name=cloud_name,
     api_key=api_key,
     api_secret=api_secret
 )
@@ -98,7 +98,7 @@ async def process_photo(message: types.Message, state: FSMContext):
         print('Фото успешно загружено:', secure_url)
         await message.answer(f"Пост: {data['title']}\nОписание: {data['description']}\nКатегория: {data['category']}")
         json = {'title': data['title'], 'description':data['description'], 'category':data['category'], 'photo_url':secure_url  }
-        url = 'http://localhost:5000/newpost'
+        url = 'http://balancer-visit-1434470264.eu-north-1.elb.amazonaws.com/newpost'
         headers = {'Token': token_access}
         requests.post(url=url, json=json, headers=headers)
         await message.answer(f'{secure_url}')
@@ -183,7 +183,7 @@ async def process_photo_work(message: types.Message, state: FSMContext):
         print('Фото успешно загружено:', secure_url)
         await message.answer(f"Пост: {data['title']}\nОписание: {data['content']}\nКатегория: {data['category']}")
         json = {'title': data['title'], 'description': data['content'], 'category': data['category'], 'photo_url': secure_url}
-        url = 'http://localhost:5000/newwork'
+        url = 'http://balancer-visit-1434470264.eu-north-1.elb.amazonaws.com/newwork'
         headers = {'Token': token_access}
         requests.post(url=url, json=json, headers=headers)
         await message.answer(f'{secure_url}')
